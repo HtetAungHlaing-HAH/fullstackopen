@@ -9,10 +9,24 @@ const Header = (props) => (
 )
 
 //Display component
-const Display = (props) => <div>{props.text} {props.value}</div>
+const Display = ({text, value}) => <div>{text} {value}</div>
 
 //Button component
-const Button = (props) => <button onClick={props.handleClick}>{props.text}</button>
+const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
+
+//Statistics component
+const Statistics = (props) => {
+  return(
+    <>
+      <Display text={props.stats[0].text} value={props.stats[0].value} />
+      <Display text={props.stats[1].text} value={props.stats[1].value} />
+      <Display text={props.stats[2].text} value={props.stats[2].value} />
+      <Display text={props.stats[3].text} value={props.stats[3].value} />
+      <Display text={props.stats[4].text} value={props.stats[4].value} />
+      <Display text={props.stats[5].text} value={props.stats[5].value} />
+    </>
+  )
+}
 
 //main App component
 const App = () => {
@@ -22,17 +36,37 @@ const App = () => {
   const [bad, setBad] = useState(0)
 
   const total = good + neutral + bad
+  const averageScore = (good - bad) / total
+  const percentOfPositive = (good * 100) / total + '%'
 
-  //to calculate average score
-  const averageScore = () => {
-    return ((good * 1) + (neutral * 0) + (bad * (-1)))/total
-  }
-  
-  //to calculate percentage of positive
-  const percentOfPositive = () => {
-    const percent = (good * 100)/ total
-    return percent + '%'
-  }
+  //statistics array
+  const statistics = [
+    {
+      text : 'good',
+      value : good
+    },
+    {
+      text : 'neutral',
+      value : neutral
+    },
+    {
+      text : 'bad',
+      value : bad
+    },
+    {
+      text : 'total',
+      value : total
+    },
+    {
+      text : 'average',
+      value : averageScore
+    },
+    {
+      text : 'positive',
+      value : percentOfPositive
+    }
+  ]
+
 
   return(
     <div>
@@ -41,12 +75,7 @@ const App = () => {
       <Button handleClick={() => setNeutral(neutral +1)} text='neutral' />
       <Button handleClick={() => setBad(bad + 1)} text='bad' /> 
       <Header text='statistics' />
-      <Display text='good' value={good} />
-      <Display text='neutral' value={neutral} />
-      <Display text='bad' value={bad} />
-      <Display text='all' value={total} />
-      <Display text='average' value={averageScore()} />
-      <Display text='positive' value={percentOfPositive()} />
+      <Statistics stats={statistics} />
     </div>
   )
 }
