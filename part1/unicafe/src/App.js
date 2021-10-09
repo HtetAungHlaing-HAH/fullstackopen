@@ -16,6 +16,17 @@ const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</bu
 
 //Statistics component
 const Statistics = (props) => {
+  
+  //conditional rendering on total feedbacks (Note : stats[3].value is total)
+  if(props.stats[3].value === 0)
+  {
+    return(
+      <div>
+        No feedbacks given
+      </div>
+    )
+  }
+
   return(
     <>
       <Display text={props.stats[0].text} value={props.stats[0].value} />
@@ -35,11 +46,12 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
+  //statistics calculations
   const total = good + neutral + bad
-  const averageScore = (good - bad) / total
+  const averageScore = ((good * 1) + (neutral * 0) + (bad * (-1))) / total
   const percentOfPositive = (good * 100) / total + '%'
 
-  //statistics array
+  //statistics array for display
   const statistics = [
     {
       text : 'good',
