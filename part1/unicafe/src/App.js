@@ -8,8 +8,8 @@ const Header = (props) => (
   </div>
 )
 
-//Display component
-const Display = ({text, value}) => <div>{text} {value}</div>
+//StatisticLine component
+const StatisticLine = ({text, value}) => <div>{text} {value}</div>
 
 //Button component
 const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
@@ -18,7 +18,7 @@ const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</bu
 const Statistics = (props) => {
   
   //conditional rendering on total feedbacks (Note : stats[3].value is total)
-  if(props.stats[3].value === 0)
+  if(props.stats[3] === 0)
   {
     return(
       <div>
@@ -28,14 +28,14 @@ const Statistics = (props) => {
   }
 
   return(
-    <>
-      <Display text={props.stats[0].text} value={props.stats[0].value} />
-      <Display text={props.stats[1].text} value={props.stats[1].value} />
-      <Display text={props.stats[2].text} value={props.stats[2].value} />
-      <Display text={props.stats[3].text} value={props.stats[3].value} />
-      <Display text={props.stats[4].text} value={props.stats[4].value} />
-      <Display text={props.stats[5].text} value={props.stats[5].value} />
-    </>
+    <div>
+      <StatisticLine text="good" value={props.stats[0]} />
+      <StatisticLine text="neutral" value={props.stats[1]} />
+      <StatisticLine text="bad" value={props.stats[2]} />
+      <StatisticLine text="total" value={props.stats[3]} />
+      <StatisticLine text="average" value={props.stats[4]} />
+      <StatisticLine text="positive" value={props.stats[5]} />
+    </div>
   )
 }
 
@@ -53,30 +53,12 @@ const App = () => {
 
   //statistics array for display
   const statistics = [
-    {
-      text : 'good',
-      value : good
-    },
-    {
-      text : 'neutral',
-      value : neutral
-    },
-    {
-      text : 'bad',
-      value : bad
-    },
-    {
-      text : 'total',
-      value : total
-    },
-    {
-      text : 'average',
-      value : averageScore
-    },
-    {
-      text : 'positive',
-      value : percentOfPositive
-    }
+    good,
+    neutral,
+    bad,
+    total,
+    averageScore,
+    percentOfPositive
   ]
 
 
