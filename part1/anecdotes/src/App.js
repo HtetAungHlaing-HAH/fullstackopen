@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
 
+//Header component
+const Header = (props) => (
+  <div>
+    <h1>
+      {props.text}
+    </h1>
+  </div>
+)
+
 //Display component
 const Display = (props) => {
   //conditional rendering on singular/plural of vote
@@ -39,6 +48,9 @@ const App = () => {
   const [vote, setVote] = useState(
     Array(anecdotes.length).fill(0)
   )
+  
+  //to display most-voted anecdote
+  const mostVotes = vote.indexOf(Math.max(...vote))
 
   //to display random anecdote
   const handleRandom = () => {
@@ -48,19 +60,22 @@ const App = () => {
 
   //to calculate and store votes
   const handleVote = () => {
-    const copyVote = {...vote}
+    const copyVote = [...vote]
     copyVote[selected] += 1
     return setVote(copyVote)
   }
 
   return(
     <div>
+      <Header text='Anecdote of the day' />
       {anecdotes[selected]}
       <Display vote={vote} state={selected} />
       <div>
         <Button handleClick={handleVote} text='vote' />
         <Button handleClick={handleRandom} text='next anecdote' />
       </div>
+      <Header text='Anecdote with most votes' />
+      {anecdotes[mostVotes]}
     </div>
   )
 }
