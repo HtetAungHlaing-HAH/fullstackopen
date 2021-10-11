@@ -1,11 +1,25 @@
 import React, { useState } from 'react';
 
+//Display component
+const Display = (props) => {
+  //conditional rendering on singular/plural of vote
+  if(props.vote[props.state] > 1)
+  {
+    return(
+      <div>
+        has {props.vote[props.state]} votes
+      </div>
+    )
+  }
+  return(
+    <div>
+      has {props.vote[props.state]} vote
+    </div>
+  )
+}
+
 //Button component
-const Button = ({handleClick, text}) => (
-  <div>
-    <button onClick={handleClick}>{text}</button>
-  </div>
-)
+const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
 
 //main App component
 const App = () => {
@@ -22,6 +36,9 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState(0)
+  const [vote, setVote] = useState(
+    Array(anecdotes.length).fill(0)
+  )
 
   //to display random anecdote
   const handleRandom = () => {
@@ -29,10 +46,21 @@ const App = () => {
     return setSelected(rand)
   }
 
+  //to calculate and store votes
+  const handleVote = () => {
+    const copyVote = {...vote}
+    copyVote[selected] += 1
+    return setVote(copyVote)
+  }
+
   return(
     <div>
       {anecdotes[selected]}
-      <Button handleClick={handleRandom} text='next anecdote' />
+      <Display vote={vote} state={selected} />
+      <div>
+        <Button handleClick={handleVote} text='vote' />
+        <Button handleClick={handleRandom} text='next anecdote' />
+      </div>
     </div>
   )
 }
