@@ -9,7 +9,7 @@ const Header = (props) => (
 )
 
 //StatisticLine component
-const StatisticLine = ({text, value}) => <div>{text} {value}</div>
+const StatisticLine = ({text, value}) => <tr><td>{text}</td><td>{value}</td></tr>
 
 //Button component
 const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
@@ -29,12 +29,16 @@ const Statistics = (props) => {
 
   return(
     <div>
-      <StatisticLine text="good" value={props.stats[0]} />
-      <StatisticLine text="neutral" value={props.stats[1]} />
-      <StatisticLine text="bad" value={props.stats[2]} />
-      <StatisticLine text="total" value={props.stats[3]} />
-      <StatisticLine text="average" value={props.stats[4]} />
-      <StatisticLine text="positive" value={props.stats[5]} />
+      <table>
+          <tbody>
+            <StatisticLine text="good" value={props.stats[0]} />
+            <StatisticLine text="neutral" value={props.stats[1]} />
+            <StatisticLine text="bad" value={props.stats[2]} />
+            <StatisticLine text="total" value={props.stats[3]} />
+            <StatisticLine text="average" value={props.stats[4]} />
+            <StatisticLine text="positive" value={props.stats[5]} />
+          </tbody>
+      </table>
     </div>
   )
 }
