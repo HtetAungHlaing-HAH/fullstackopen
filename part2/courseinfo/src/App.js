@@ -69,7 +69,7 @@ const App = () => {
         id: 3
       },
       {
-        name: 'redux',
+        name: 'Redux',
         exercises: 11,
         id: 4
       }
