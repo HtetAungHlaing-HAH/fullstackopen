@@ -11,7 +11,7 @@ const Header = (props) => {
 const Total = (props) => {
   const total = props.parts.reduce((sum ,p) => sum + p.exercises, 0 )
   return(
-    <p>Number of exercises {total}</p>
+    <strong>total of {total} exercises</strong>
   ) 
 }
 
@@ -69,8 +69,8 @@ const App = () => {
         id: 3
       },
       {
-        name: 'testing',
-        exercises: 10,
+        name: 'redux',
+        exercises: 11,
         id: 4
       }
     ]
