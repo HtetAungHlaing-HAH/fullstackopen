@@ -8,13 +8,12 @@ const Header = (props) => {
 }
 
 //Total component
-/*const Total = (props) => {
-  const sum = props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises
+const Total = (props) => {
+  const total = props.parts.reduce((sum ,p) => sum + p.exercises, 0 )
   return(
-    <p>Number of exercises {sum}</p>
+    <p>Number of exercises {total}</p>
   ) 
 }
-*/
 
 //Part component
 const Part = (props) => {
@@ -42,6 +41,7 @@ const Course = (props) => {
     <div>
       <Header name={course.name} />
       <Content parts={course.parts} />
+      <Total parts={course.parts} />
     </div>
   )
 
@@ -67,6 +67,11 @@ const App = () => {
         name: 'State of a component',
         exercises: 14,
         id: 3
+      },
+      {
+        name: 'testing',
+        exercises: 10,
+        id: 4
       }
     ]
   }
