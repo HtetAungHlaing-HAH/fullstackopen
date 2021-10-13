@@ -1,7 +1,14 @@
 import React from 'react';
 
 //Persons component
-const Persons = (props) => <div> {props.name} </div>
+const Persons = ({person}) =>
+{
+    return(
+        <div>
+            {person.name} {person.number}
+        </div>
+    )
+}
 
 export default Persons
 
