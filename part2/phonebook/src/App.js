@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
 import Persons from './components/Persons'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+
+
 
 //main App component
 const App = () => {
@@ -17,6 +21,7 @@ const App = () => {
   //to store filtered names by search field
   const namesToShow = search.length === 0
   ? persons : persons.filter(person => person.name.match(new RegExp(search, "i")))
+
 
   //to store new name in input element
   const handleNewName = (event) => {
@@ -57,25 +62,17 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with<input value={search} onChange={handleSearchName} />
-      </div>
-      <h2>add a new</h2>
-      <form>
-        <div>
-          name: <input value={newName} onChange={handleNewName}/>
-        </div>
-        <div>
-          number: <input  value={newNumber} onChange={handleNewNumber} />
-        </div>
-        <div>
-          <button type="submit" onClick={addName}>add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      {namesToShow.map(person => <Persons key={person.id} person={person} />)}
+      <Filter text='filter shown with' value={search} filterHandler={handleSearchName}/>
+      <h3>add a new</h3>
+      <PersonForm 
+        name={newName} nameHandler={handleNewName}
+        number={newNumber} numberHandler={handleNewNumber}
+        addHandler={addName}
+      />
+      <h3>Numbers</h3>
+      <Persons persons={namesToShow} />
     </div>
   )
 }
 
-export default App
+export default App;

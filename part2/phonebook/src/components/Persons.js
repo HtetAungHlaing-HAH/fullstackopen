@@ -1,14 +1,23 @@
 import React from 'react';
 
-//Persons component
-const Persons = ({person}) =>
-{
+//SinglePerson component
+const SinglePerson = (props) => {
     return(
         <div>
-            {person.name} {person.number}
+            {props.person.name} {props.person.number}
         </div>
     )
 }
 
-export default Persons
+//Persons component
+const Persons = (props) => {   
+    const newPersons =  [...props.persons]
+    return(
+        <div>
+            {newPersons.map(person => <SinglePerson key={person.id} person={person} />)}
+        </div>
+    )
+}
+
+export default Persons;
 
