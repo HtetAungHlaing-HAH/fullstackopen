@@ -13,8 +13,10 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ search, setSearch ] = useState('')
+
+  //to store filtered names by search field
   const namesToShow = search.length === 0
-  ? persons : persons.filter(person => person.name.search(new RegExp(search, "i")) === 0)
+  ? persons : persons.filter(person => person.name.match(new RegExp(search, "i")))
 
   //to store new name in input element
   const handleNewName = (event) => {
