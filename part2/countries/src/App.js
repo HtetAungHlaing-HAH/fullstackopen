@@ -6,19 +6,27 @@ import Display from './components/Display'
 
 //main App component
 const App = () => {
-  const [ countries, setCountries ] = useState([])
-  const [ search, setSearch ] = useState('')
+  const [countries, setCountries] = useState([])
+  const [search, setSearch] = useState('')
+  const [ weather, setWeather ] = useState({})
 
   //to store button-clicked country
-  const [ show, setShow ] = useState([])
+  const [show, setShow] = useState([])
 
-  //to store countries to display
-  const countriesToShow = search.length === 0
-  ? show : countries.filter(country => country.name.common.match(new RegExp(search, "i")))
+  //to store api_key
+  const api_key = process.env.REACT_APP_API_KEY
 
   
+  //to store countries to display
+  const countriesToShow = search.length === 0
+    ? show : countries.filter(country => country.name.common.match(new RegExp(search, "i")))
+
+  const currentCountry = countriesToShow.length === 1
+  ? countriesToShow[0].capital : ['Yangon']
+
+
   //this is effect-hook
-  const hook = () => {
+  const countriesHook = () => {
     axios
       .get('https://restcountries.com/v3.1/all')
       .then(response => {
@@ -26,12 +34,24 @@ const App = () => {
         setCountries(response.data)
       })
   }
-  
-  useEffect(hook, [])
+
+  const weatherHook = () => {
+    axios
+      .get(`http://api.weatherstack.com/current?access_key=${api_key}&query=${currentCountry[0]}`)
+      .then(response => {
+        setWeather(response.data)
+      })
+  }
+
+
+  useEffect(countriesHook, [])
+  useEffect(weatherHook, [search])
+
 
   //to handle search box
   const handleSearch = (event) => {
     setSearch(event.target.value)
+    setShow([])
   }
 
   //to handle show button
@@ -42,12 +62,12 @@ const App = () => {
     setSearch('')
   }
 
-  return(
+  return (
     <div>
       <div>
-        find countries<input value={search} onChange={handleSearch}/>
+        find countries<input value={search} onChange={handleSearch} />
       </div>
-      <Display countries={countriesToShow} showHandler={handleShow}/>
+      <Display countries={countriesToShow} showHandler={handleShow} weather={weather} />
     </div>
   )
 }

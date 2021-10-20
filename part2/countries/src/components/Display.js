@@ -1,8 +1,35 @@
 import React from 'react'
 
 //SingleCountry Component
-const SingleCountry = ({singleCountry}) => {
+const SingleCountry = (props) => {
+    const singleCountry = props.singleCountry
+    const weather = props.singleWeather
+    console.log(weather)
     const languages = Object.values(singleCountry.languages)
+    if(Object.keys(weather).length === 2)
+    {
+      return (
+        <div>
+          <h2>
+            {singleCountry.name.common}
+          </h2>
+          <div>
+            capital {singleCountry.capital}
+          </div>
+          <div>
+            population {singleCountry.population}
+          </div>
+          <h3>
+            Spoken languages
+          </h3>
+          <ul>
+            {languages.map(language => <li key={language}>{language}</li>)}
+          </ul>
+          <img src={singleCountry.flags.png} alt={singleCountry.name.common} style={{border:'1px solid'}} />
+        </div>
+      )
+    }
+
     return (
         <div>
           <h2>
@@ -15,12 +42,20 @@ const SingleCountry = ({singleCountry}) => {
             population {singleCountry.population}
           </div>
           <h3>
-            languages
+            Spoken languages
           </h3>
           <ul>
             {languages.map(language => <li key={language}>{language}</li>)}
           </ul>
           <img src={singleCountry.flags.png} alt={singleCountry.name.common} style={{border:'1px solid'}} />
+          <h3>Weather in {singleCountry.capital}</h3>
+          <div>
+            <strong>temperature:</strong> {weather.current.temperature} Celsius
+          </div>
+          <img src={weather.current.weather_icons[0]} alt={weather.current.weather_descriptions[0]} />
+          <div>
+            <strong>wind:</strong> {weather.current.wind_speed} kmph direction {weather.current.wind_dir}
+          </div>
         </div>
     )
 }
@@ -40,7 +75,7 @@ const Display = (props) => {
     { //when number of matched countries is 1
       const oneCountry = filteredCountries[0]
       return (
-        <SingleCountry singleCountry={oneCountry} />
+        <SingleCountry singleCountry={oneCountry} singleWeather={props.weather}/>
       )
     }
     else if (filteredCountries.length <= 10)
