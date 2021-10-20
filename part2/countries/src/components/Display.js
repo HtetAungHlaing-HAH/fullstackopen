@@ -4,7 +4,6 @@ import React from 'react'
 const SingleCountry = (props) => {
     const singleCountry = props.singleCountry
     const weather = props.singleWeather
-    console.log(weather)
     const languages = Object.values(singleCountry.languages)
     if(Object.keys(weather).length === 2)
     {
