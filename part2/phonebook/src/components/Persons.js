@@ -5,6 +5,7 @@ const SinglePerson = (props) => {
     return(
         <div>
             {props.person.name} {props.person.number}
+            <button onClick={() => props.deletePerson(props.person.id)}>delete</button>
         </div>
     )
 }
@@ -14,7 +15,7 @@ const Persons = (props) => {
     const newPersons =  [...props.persons]
     return(
         <div>
-            {newPersons.map(person => <SinglePerson key={person.id} person={person} />)}
+            {newPersons.map(person => <SinglePerson key={person.id} person={person} deletePerson ={props.deleteHandler}/>)}
         </div>
     )
 }

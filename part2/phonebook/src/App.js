@@ -62,10 +62,24 @@ const App = () => {
     }
     else
     {
-      personService.add(newPerson)
-      setPersons(persons.concat(newPerson))
-      setNewName('')
-      setNewNumber('')
+      personService
+        .add(newPerson)
+        .then(newPersonObject => {
+          setPersons(persons.concat(newPersonObject))
+          setNewName('')
+          setNewNumber('')
+        })
+    }
+  }
+
+  const deletePerson = id => {
+    const deletedName = persons.find(person => person.id === id)
+    if(window.confirm(`Delete ${deletedName.name} ?`))
+    {
+      personService.deletePer(id)
+      .then(
+        setPersons(persons.filter(person => person.id !== id))
+      )
     }
   }
 
@@ -80,7 +94,7 @@ const App = () => {
         addHandler={addName}
       />
       <h3>Numbers</h3>
-      <Persons persons={namesToShow} />
+      <Persons persons={namesToShow} deleteHandler= {deletePerson}/>
     </div>
   )
 }
