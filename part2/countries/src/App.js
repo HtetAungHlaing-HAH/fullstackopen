@@ -8,7 +8,7 @@ import Display from './components/Display'
 const App = () => {
   const [countries, setCountries] = useState([])
   const [search, setSearch] = useState('')
-  const [ weather, setWeather ] = useState({})
+  const [weather, setWeather] = useState({})
 
   //to store button-clicked country
   const [show, setShow] = useState([])
@@ -16,13 +16,13 @@ const App = () => {
   //to store api_key
   const api_key = process.env.REACT_APP_API_KEY
 
-  
+
   //to store countries to display
   const countriesToShow = search.length === 0
     ? show : countries.filter(country => country.name.common.match(new RegExp(search, "i")))
 
   const currentCountry = countriesToShow.length === 1
-  ? countriesToShow[0].capital : ['Yangon']
+    ? countriesToShow[0].capital : ['Yangon']
 
 
   //this is effect-hook
