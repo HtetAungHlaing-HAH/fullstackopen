@@ -1,29 +1,24 @@
 {
-  "persons": [
-    {
-      "name": "Ada Lovelace",
-      "number": "09250072364",
+  "persons":[
+    { 
+      "name": "Arto Hellas", 
+      "number": "040-123456",
+      "id": 1
+    },
+    { 
+      "name": "Ada Lovelace", 
+      "number": "39-44-5323523",
       "id": 2
     },
-    {
-      "name": "Mary Poppendieck",
+    { 
+      "name": "Dan Abramov", 
+      "number": "12-43-234345",
+      "id": 3
+    },
+    { 
+      "name": "Mary Poppendieck", 
       "number": "39-23-6423122",
       "id": 4
-    },
-    {
-      "name": "Htet Aung Hlaing",
-      "number": "2423492u49",
-      "id": 6
-    },
-    {
-      "name": "Rapper",
-      "number": "29424728",
-      "id": 7
-    },
-    {
-      "name": "Someone",
-      "number": "32427498732",
-      "id": 8
     }
   ]
 }
