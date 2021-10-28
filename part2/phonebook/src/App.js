@@ -3,7 +3,7 @@ import Persons from './components/Persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import personService from './services/persons'
-
+import Notification from './components/Notification'
 
 
 //main App component
@@ -12,6 +12,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ search, setSearch ] = useState('')
+  const [ noti, setNoti ] = useState(null)
 
   //effect-hook function reference
   const hook = () => {
@@ -73,6 +74,10 @@ const App = () => {
               setPersons(persons.map(person => person.id !== nameFound.id ? person : updatedObject))
               setNewName('')
               setNewNumber('')
+              setNoti(`Updated ${newPerson.name}'s Number`)
+              setTimeout(() => {
+                setNoti(null)
+              }, 5000)
             })
         }
       }
@@ -84,6 +89,10 @@ const App = () => {
             setPersons(persons.concat(newPersonObject))
             setNewName('')
             setNewNumber('')
+            setNoti(`Added ${newPerson.name}`)
+              setTimeout(() => {
+                setNoti(null)
+              }, 5000)
           })
       }  
     }
@@ -104,6 +113,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={noti} />
       <Filter text='filter shown with' value={search} filterHandler={handleSearchName}/>
       <h3>add a new</h3>
       <PersonForm 
