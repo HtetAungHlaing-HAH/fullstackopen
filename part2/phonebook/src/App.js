@@ -13,6 +13,7 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ search, setSearch ] = useState('')
   const [ noti, setNoti ] = useState(null)
+  const [ error, setError ] = useState(false)
 
   //effect-hook function reference
   const hook = () => {
@@ -70,7 +71,6 @@ const App = () => {
           personService
             .replace(newPerson ,nameFound.id)
             .then(updatedObject => {
-              console.log(updatedObject)
               setPersons(persons.map(person => person.id !== nameFound.id ? person : updatedObject))
               setNewName('')
               setNewNumber('')
@@ -79,6 +79,18 @@ const App = () => {
                 setNoti(null)
               }, 5000)
             })
+            .catch(error => {
+              setError(true)
+              setNoti(`Information of ${newPerson.name} has already been removed from server`)
+              setTimeout(() => {
+                setError(false)
+                setNoti(null)
+              }, 5000)
+              setPersons(persons.filter(person => person.id !== nameFound.id))
+              setNewName('')
+              setNewNumber('')
+            }
+            )
         }
       }
       else
@@ -113,7 +125,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={noti} />
+      <Notification message={noti} error={error}/>
       <Filter text='filter shown with' value={search} filterHandler={handleSearchName}/>
       <h3>add a new</h3>
       <PersonForm 
