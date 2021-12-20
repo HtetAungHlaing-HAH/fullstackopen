@@ -80,15 +80,27 @@ const App = () => {
               }, 5000)
             })
             .catch(error => {
-              setError(true)
-              setNoti(`Information of ${newPerson.name} has already been removed from server`)
-              setTimeout(() => {
-                setError(false)
-                setNoti(null)
-              }, 5000)
-              setPersons(persons.filter(person => person.id !== nameFound.id))
-              setNewName('')
-              setNewNumber('')
+              if(error.response.status === 400)
+              {
+                setError(true)
+                setNoti(error.response.data.error)
+                setTimeout(() => {
+                  setError(false)
+                  setNoti(null)
+                }, 5000)
+              }
+              else if(error.response.status === 404)
+              {
+                setError(true)
+                setNoti(`Information of ${newPerson.name} has already been removed from server`)
+                setTimeout(() => {
+                  setError(false)
+                  setNoti(null)
+                }, 5000)
+                setPersons(persons.filter(person => person.id !== nameFound.id))
+                setNewName('')
+                setNewNumber('')  
+                }
             }
             )
         }
@@ -105,6 +117,15 @@ const App = () => {
               setTimeout(() => {
                 setNoti(null)
               }, 5000)
+          })
+          .catch(error => {
+            setError(true)
+            setNoti(error.response.data.error)
+            setTimeout(() => {
+              setError(false)
+              setNoti(null)
+            }, 5000)
+            console.log(error.response.data)
           })
       }  
     }
